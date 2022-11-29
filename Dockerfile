@@ -3,7 +3,7 @@ FROM ubuntu:20.04
 SHELL [ "/bin/bash", "-c" ]
 
 
-RUN apt-get update -y && apt-get install -y sudo python python3 python3-pip
+RUN apt-get update -y && apt-get install -y sudo python python3 python3-pip git
 
 RUN useradd -m ubuntu && \
     usermod -aG sudo ubuntu && \

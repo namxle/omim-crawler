@@ -133,3 +133,14 @@ aliexpress/aliexpress/spiders/results/*
 
 convert/node_modules/*
 
+# Input files
+inputs/omim/*.txt
+inputs/omim-genes/*.txt
+
+# Output files
+outputs/logs/omim/*.log
+outputs/logs/omim-genes/*.log
+
+# Result files
+outputs/result/omim/*.json
+outputs/result/omim-genes/*.json

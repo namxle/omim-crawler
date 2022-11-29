@@ -10,5 +10,5 @@ services:
       - INPUT_FILE=batch-01.txt
       - OUTPUT_FILE=omim-genes/batch-01
       - SPIDER=OmimGeneSpider
-    entrypoint: [""]
+    entrypoint: ["/home/ubuntu/omim-crawler/run.sh"]
   
