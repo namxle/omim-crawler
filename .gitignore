@@ -142,5 +142,7 @@ outputs/logs/omim/*.log
 outputs/logs/omim-genes/*.log
 
 # Result files
-outputs/result/omim/*.json
-outputs/result/omim-genes/*.json
+outputs/result/omim/*
+outputs/result/omim-genes/*
+
+node_modules

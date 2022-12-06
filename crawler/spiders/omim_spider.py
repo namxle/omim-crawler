@@ -17,14 +17,14 @@ class OmimSpider(Spider):
         """Loop each OMIM entry list in OMIM number file"""
 
         # http://omim.org/static/omim/data/mim2gene.txt
-        mimnum_filename = f'/home/ubuntu/omim_number.txt'
+        mimnum_filename = f'/home/ubuntu/omim-crawler/inputs/omim/{os.getenv("INPUT_FILE")}.txt'
 
         with open(mimnum_filename) as mimnum_file:
             for line in mimnum_file:
                 if re.match('#', line):
                     continue
                 mim_num = line.rstrip().split('\t')[0]  # omim number: e.g. 600185
-                url = 'https://omim.org/clinicalSynopsis/' + mim_num  # get OMIM entry
+                url = 'https://omim.org/clinicalSynopsis/' + mim_num  # get OMIM Clinical Synopsis
                 print (url)
                 # HTTP request the URL
                 yield Request(url, method='GET', callback=self.parse_content)
@@ -32,8 +32,7 @@ class OmimSpider(Spider):
     def parse_content(self, response):
         """Parse HTML content"""
 
-        items = OmimcrawlerItem()
-
+        items = OmimItem()
 
         omim_url = response.url
         soup = BeautifulSoup(response.text,'lxml')

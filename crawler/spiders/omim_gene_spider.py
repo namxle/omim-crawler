@@ -16,7 +16,7 @@ class OmimSpider(Spider):
     def parse(self, response):
         """Loop each OMIM entry list in OMIM number file"""
 
-        mimnum_filename = f'/home/ubuntu/omim-crawler/inputs/omim-genes/{os.getenv("INPUT_FILE")}'
+        mimnum_filename = f'/home/ubuntu/omim-crawler/inputs/omim-genes/{os.getenv("INPUT_FILE")}.txt'
 
         with open(mimnum_filename) as mimnum_file:
             for line in mimnum_file:

@@ -12,7 +12,12 @@ import os
 class CrawlerPipeline(object):
     """结果输出到一个 JSON Line 格式的文件中"""
     def __init__(self):
-        self.file = open(f'/home/ubuntu/omim-crawler/outputs/result/{os.getenv("OUTPUT_FILE")}.json', 'wb')
+        if os.getenv("SPIDER") == 'OmimGeneSpider':
+            folder = f'omim-genes/{os.getenv("INPUT_FILE")}'
+        else:
+            folder = f'omim/{os.getenv("INPUT_FILE")}'
+        
+        self.file = open(f'/home/ubuntu/omim-crawler/outputs/result/{folder}/{os.getenv("INPUT_FILE")}.json', 'wb')
         self.exporter = JsonLinesItemExporter(self.file, ensure_ascii=False, encoding='utf-8')
         self.exporter.start_exporting()
 

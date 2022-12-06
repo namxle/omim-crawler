@@ -1,14 +1,12 @@
 version: "3.5"
 services:
-  omim-gene-batch-01:
+  omim:
     tty: true
-    container_name: omim-gene-batch-01
+    container_name: omim
     image: namxle/omim-crawler:latest
     volumes:
       - ./:/home/ubuntu/omim-crawler
     environment:
-      - INPUT_FILE=batch-01.txt
-      - OUTPUT_FILE=omim-genes/batch-01
-      - SPIDER=OmimGeneSpider
+      - INPUT_FILE=batch-01
     entrypoint: ["/home/ubuntu/omim-crawler/run.sh"]
   
