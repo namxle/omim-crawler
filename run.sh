@@ -4,6 +4,8 @@ cd /home/ubuntu/omim-crawler/convert
 
 npm install
 
+cd /home/ubuntu/omim-crawler
+
 echo "Start"
 
 LOG_PATH=/home/ubuntu/omim-crawler/outputs/logs
