@@ -1,5 +1,9 @@
 #!/bin/bash
 
+cd /home/ubuntu/omim-crawler/convert
+
+npm install
+
 echo "Start"
 
 LOG_PATH=/home/ubuntu/omim-crawler/outputs/logs
