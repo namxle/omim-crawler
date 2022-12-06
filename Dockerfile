@@ -36,10 +36,5 @@ ENV NODE_PATH=/home/ubuntu/nvm/v16.17.1/lib/node_modules
 
 ENV PATH=/home/ubuntu/nvm/versions/node/v16.17.1/bin:$PATH
 
-WORKDIR /home/ubuntu/omim-crawler/convert
-
-COPY ./convert/package.json .
-
-RUN npm install
 
 WORKDIR /home/ubuntu/omim-crawler
