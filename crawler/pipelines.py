@@ -12,7 +12,7 @@ import os
 class CrawlerPipeline(object):
     """结果输出到一个 JSON Line 格式的文件中"""
     def __init__(self):
-        if os.getenv("SPIDER") == 'OmimGeneSpider':
+        if os.getenv("STATE") == 'OMIM_GENE':
             folder = f'omim-genes/{os.getenv("INPUT_FILE")}'
         else:
             folder = f'omim/{os.getenv("INPUT_FILE")}'
