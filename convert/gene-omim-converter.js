@@ -26,14 +26,12 @@ rstream.on('data', (chunk) => {
 })
 
 
-process.exit(0);
 
-
-geneOmimEntry = geneOmimEntry.split('\n').filter(gene => gene != '').map(gene => { 
-    let g = JSON.parse(gene)
-    g.omim_number = g.omim_number.split('?')[0];    
-    return g;
-});
+// geneOmimEntry = geneOmimEntry.split('\n').filter(gene => gene != '').map(gene => { 
+//     let g = JSON.parse(gene)
+//     g.omim_number = g.omim_number.split('?')[0];    
+//     return g;
+// });
 
 function trimSpace(stringValue) {
     if (stringValue != '' && stringValue != null) {
@@ -42,8 +40,7 @@ function trimSpace(stringValue) {
     return '';
 }
 
-let wstream = fs.createWriteStream(`${folderPath}/${outputFile}`, optionsFile);
-
+// let wstream = fs.createWriteStream(`${folderPath}/${outputFile}`, optionsFile);
 
 
 let runExtract = async (body, geneData) => {
@@ -237,5 +234,5 @@ let execute = async () => {
     }
 }
 
-execute();
+// execute();
 
