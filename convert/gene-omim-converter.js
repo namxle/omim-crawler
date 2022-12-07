@@ -14,21 +14,26 @@ const optionsFile = {
 	encoding: "utf8",
 };
 
-// if (!fs.existsSync(`${folderPath}/${entryFile}`)) {
-//     console.log("File do not exist");
-//     return;
-// }
+if (!fs.existsSync(`${folderPath}/${entryFile}`)) {
+    console.log("File do not exist");
+    process.exit(1);
+}
 
-let geneOmimEntry = fs.readFileSync(`${folderPath}/${entryFile}`,
-            {encoding:'utf8', flag:'r'});
+let rstream = fs.createReadStream(`${folderPath}/${entryFile}`, { encoding: 'utf8', flag: 'r' })
+
+rstream.on('data', (chunk) => {
+    console.log(chunk);
+})
+
+
+process.exit(0);
+
 
 geneOmimEntry = geneOmimEntry.split('\n').filter(gene => gene != '').map(gene => { 
     let g = JSON.parse(gene)
     g.omim_number = g.omim_number.split('?')[0];    
     return g;
 });
-
-console.log(123);
 
 function trimSpace(stringValue) {
     if (stringValue != '' && stringValue != null) {
@@ -37,10 +42,9 @@ function trimSpace(stringValue) {
     return '';
 }
 
-wstream = fs.createWriteStream(`${folderPath}/${outputFile}`, optionsFile);
+let wstream = fs.createWriteStream(`${folderPath}/${outputFile}`, optionsFile);
 
 
-console.log(456);
 
 let runExtract = async (body, geneData) => {
 	//console.log(body)
