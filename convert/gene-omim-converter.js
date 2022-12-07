@@ -1,5 +1,6 @@
 const fs = require("fs");
 const cheerio = require("cheerio");
+const readline = require('readline')
 
 const folderPath = `/home/ubuntu/omim-crawler/outputs/result/omim-genes/${process.env.INPUT_FILE}`
 
@@ -19,12 +20,15 @@ if (!fs.existsSync(`${folderPath}/${entryFile}`)) {
     process.exit(1);
 }
 
-let rstream = fs.createReadStream(`${folderPath}/${entryFile}`, { encoding: 'utf8', flag: 'r' })
 
-rstream.on('data', (chunk) => {
-    console.log(chunk);
-})
+var lineReader = readline.createInterface({
+    input: fs.createReadStream(`${folderPath}/${entryFile}`)
+});
 
+lineReader.on('line', function (line) {
+    console.log('Line from file:', line);
+    process.exit(0);
+});
 
 
 // geneOmimEntry = geneOmimEntry.split('\n').filter(gene => gene != '').map(gene => { 
