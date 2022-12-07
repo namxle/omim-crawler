@@ -15,7 +15,7 @@ const optionsFile = {
 };
 
 if (!fs.existsSync(`${folderPath}/${entryFile}`)) {
-    console.log(`File: '${folderPath}/${entryFile}' do not exist`);
+    console.log("File do not exist");
     return;
 }
 
