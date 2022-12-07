@@ -14,10 +14,10 @@ const optionsFile = {
 	encoding: "utf8",
 };
 
-if (!fs.existsSync(`${folderPath}/${entryFile}`)) {
-    console.log("File do not exist");
-    return;
-}
+// if (!fs.existsSync(`${folderPath}/${entryFile}`)) {
+//     console.log("File do not exist");
+//     return;
+// }
 
 let geneOmimEntry = fs.readFileSync(`${folderPath}/${entryFile}`,
             {encoding:'utf8', flag:'r'});
