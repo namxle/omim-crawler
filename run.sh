@@ -16,8 +16,8 @@ mkdir -p /home/ubuntu/omim-crawler/outputs/result/omim/$INPUT_FILE
 
 echo "Run scrapy for Omim Gene"
 
-# export STATE=OMIM_GENE && scrapy crawl OmimGeneSpider \
-# --logfile=$LOG_PATH/omim-genes/$INPUT_FILE.log
+export STATE=OMIM_GENE && scrapy crawl OmimGeneSpider \
+--logfile=$LOG_PATH/omim-genes/$INPUT_FILE.log
 
 echo "Convert Omim Gene"
 
