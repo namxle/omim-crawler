@@ -8,6 +8,8 @@ const entryFile = `${process.env.INPUT_FILE}.json`;
 
 const outputFile = `${process.env.INPUT_FILE}_gene_omim_raw.txt`;
 
+var wstream;
+
 console.log(`${folderPath}/${entryFile}`)
 
 const optionsFile = {
@@ -21,33 +23,27 @@ if (!fs.existsSync(`${folderPath}/${entryFile}`)) {
 }
 
 
-var lineReader = readline.createInterface({
-    input: fs.createReadStream(`${folderPath}/${entryFile}`)
-});
 
-lineReader.on('line', function (line) {
-    console.log('Line from file:', line);
-    process.exit(0);
-});
+async function execute () {
+    let lineReader = readline.createInterface({
+        input: fs.createReadStream(`${folderPath}/${entryFile}`)
+    });
 
+    wstream = fs.createWriteStream(`${folderPath}/${outputFile}`, optionsFile);
 
-// geneOmimEntry = geneOmimEntry.split('\n').filter(gene => gene != '').map(gene => { 
-//     let g = JSON.parse(gene)
-//     g.omim_number = g.omim_number.split('?')[0];    
-//     return g;
-// });
-
-function trimSpace(stringValue) {
-    if (stringValue != '' && stringValue != null) {
-        return stringValue.replace(/\s\s+/g, ' ').trim().replace(/\n/g, '');
+    for await (const line of lineReader) {
+        if (line != '') {
+            let entry = JSON.parse(line);
+            entry.omim_number = entry.omim_number.split('?')[0];
+            runExtract(entry.content, entry);
+        }
     }
-    return '';
 }
 
-// let wstream = fs.createWriteStream(`${folderPath}/${outputFile}`, optionsFile);
+execute();
 
 
-let runExtract = async (body, geneData) => {
+function runExtract (body, geneData) {
 	//console.log(body)
 
 	$ = cheerio.load(body);
@@ -228,15 +224,15 @@ let runExtract = async (body, geneData) => {
 
 		//console.log(line);
 		wstream.write(line + ",\n");
-        return await new Promise(resolve => setTimeout(resolve, 1));
+        return;
 	}
 }
 
-let execute = async () => {
-    for (let gene of geneOmimEntry) {
-        await runExtract(gene.content, gene);
-    }
-}
 
-// execute();
+function trimSpace(stringValue) {
+    if (stringValue != '' && stringValue != null) {
+        return stringValue.replace(/\s\s+/g, ' ').trim().replace(/\n/g, '');
+    }
+    return '';
+}
 
