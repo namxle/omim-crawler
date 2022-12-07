@@ -7,6 +7,8 @@ const entryFile = `${process.env.INPUT_FILE}.json`;
 
 const outputFile = `${process.env.INPUT_FILE}_gene_omim_raw.txt`;
 
+console.log(`${folderPath}/${entryFile}`)
+
 const optionsFile = {
 	flags: "w",
 	encoding: "utf8",
