@@ -28,6 +28,8 @@ geneOmimEntry = geneOmimEntry.split('\n').filter(gene => gene != '').map(gene =>
     return g;
 });
 
+console.log(123);
+
 function trimSpace(stringValue) {
     if (stringValue != '' && stringValue != null) {
         return stringValue.replace(/\s\s+/g, ' ').trim().replace(/\n/g, '');
@@ -36,6 +38,9 @@ function trimSpace(stringValue) {
 }
 
 wstream = fs.createWriteStream(`${folderPath}/${outputFile}`, optionsFile);
+
+
+console.log(456);
 
 let runExtract = async (body, geneData) => {
 	//console.log(body)
