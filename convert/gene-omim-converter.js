@@ -10,8 +10,6 @@ const outputFile = `${process.env.INPUT_FILE}_gene_omim_raw.txt`;
 
 var wstream;
 
-console.log(`${folderPath}/${entryFile}`)
-
 const optionsFile = {
 	flags: "w",
 	encoding: "utf8",
@@ -21,8 +19,6 @@ if (!fs.existsSync(`${folderPath}/${entryFile}`)) {
     console.log("File do not exist");
     process.exit(1);
 }
-
-
 
 async function execute () {
     let lineReader = readline.createInterface({
@@ -223,7 +219,7 @@ function runExtract (body, geneData) {
 		var line = JSON.stringify(geneInfo);
 
 		//console.log(line);
-		wstream.write(line + ",\n");
+		wstream.write(line + "\n");
         return;
 	}
 }
