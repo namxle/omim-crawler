@@ -1,5 +1,6 @@
 const fs = require("fs");
 const cheerio = require("cheerio");
+const readline = require('readline')
 
 const folderPath = `/home/ubuntu/omim-crawler/outputs/result/omim-genes/${process.env.INPUT_FILE}`
 
@@ -7,35 +8,38 @@ const entryFile = `${process.env.INPUT_FILE}.json`;
 
 const outputFile = `${process.env.INPUT_FILE}_gene_omim_raw.txt`;
 
+var wstream;
+
 const optionsFile = {
 	flags: "w",
 	encoding: "utf8",
 };
 
 if (!fs.existsSync(`${folderPath}/${entryFile}`)) {
-    console.log(`File: '${folderPath}/${entryFile}' do not exist`);
-    return;
+    console.log("File do not exist");
+    process.exit(1);
 }
 
-let geneOmimEntry = fs.readFileSync(`${folderPath}/${entryFile}`,
-            {encoding:'utf8', flag:'r'});
+async function execute () {
+    let lineReader = readline.createInterface({
+        input: fs.createReadStream(`${folderPath}/${entryFile}`)
+    });
 
-geneOmimEntry = geneOmimEntry.split('\n').filter(gene => gene != '').map(gene => { 
-    let g = JSON.parse(gene)
-    g.omim_number = g.omim_number.split('?')[0];    
-    return g;
-});
+    wstream = fs.createWriteStream(`${folderPath}/${outputFile}`, optionsFile);
 
-function trimSpace(stringValue) {
-    if (stringValue != '' && stringValue != null) {
-        return stringValue.replace(/\s\s+/g, ' ').trim().replace(/\n/g, '');
+    for await (const line of lineReader) {
+        if (line != '') {
+            let entry = JSON.parse(line);
+            entry.omim_number = entry.omim_number.split('?')[0];
+            runExtract(entry.content, entry);
+        }
     }
-    return '';
 }
 
-wstream = fs.createWriteStream(`${folderPath}/${outputFile}`, optionsFile);
+execute();
 
-let runExtract = async (body, geneData) => {
+
+function runExtract (body, geneData) {
 	//console.log(body)
 
 	$ = cheerio.load(body);
@@ -215,16 +219,16 @@ let runExtract = async (body, geneData) => {
 		var line = JSON.stringify(geneInfo);
 
 		//console.log(line);
-		wstream.write(line + ",\n");
-        return await new Promise(resolve => setTimeout(resolve, 1));
+		wstream.write(line + "\n");
+        return;
 	}
 }
 
-let execute = async () => {
-    for (let gene of geneOmimEntry) {
-        await runExtract(gene.content, gene);
-    }
-}
 
-execute();
+function trimSpace(stringValue) {
+    if (stringValue != '' && stringValue != null) {
+        return stringValue.replace(/\s\s+/g, ' ').trim().replace(/\n/g, '');
+    }
+    return '';
+}
 
