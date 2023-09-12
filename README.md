@@ -3,7 +3,7 @@
 ## I. Introduction
 
 - This repository will crawl the data from the [omim.org](https://www.omim.org/)
-- For the sake of crawling without being banned, this will obey the instruction of the website [robots.txt](https://www.omim.org/robots.txt). Downloads will be delayed for every `4 seconds`. 
+- To prevent being banned during web crawling, this will adhere to the guidelines specified in the website's [robots.txt](https://www.omim.org/robots.txt) file, causing a delay of `4 seconds` between downloads.
 - You can change that in the [settings](https://github.com/namxle/omim-crawler/blob/main/crawler/settings.py) file. But I <b>recommend not to change it</b> or your ip & ip ranges might be banned.
 
 
