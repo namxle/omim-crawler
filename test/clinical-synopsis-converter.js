@@ -5,9 +5,9 @@ const readline = require('readline')
 
 const folderPath = `/home/ubuntu/omim-crawler/outputs/result/omim/${process.env.INPUT_FILE}`
 
-const inputFile = `${process.env.INPUT_FILE}.json`;
+const inputFile = `test.json`;
 
-const outputFile = `${process.env.INPUT_FILE}_full.txt`;
+const outputFile = `test_full.txt`;
 
 const optionsFile = {
     flags: 'w',
@@ -18,10 +18,10 @@ var wstream;
 
 async function execute() {
     let lineReader = readline.createInterface({
-        input: fs.createReadStream(`${folderPath}/${inputFile}`)
+        input: fs.createReadStream(`${inputFile}`)
     });
 
-    wstream = fs.createWriteStream(`${folderPath}/${outputFile}`, optionsFile);
+    wstream = fs.createWriteStream(`${outputFile}`, optionsFile);
 
     for await (const line of lineReader) {
         if (line != '') {
@@ -89,6 +89,7 @@ function run(data) {
 
                             var lineContent = $(content).parent().parent().parent().find('> div:nth-child(2)').text();
                             var contentArray = lineContent.split(' - ');
+                            // console.log(lineContent)
                             for (var k in contentArray) {
                                 if (trimSpace(contentArray[k]) != '') {
                                     geneInfo[key1][key2].push(trimSpace(contentArray[k]));
