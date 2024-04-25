@@ -8,6 +8,6 @@ services:
       - ./:/home/ubuntu/omim-crawler
     environment:
       - INPUT_FILE=batch-01
-      - ENV=production
+      - ENV=prod
     entrypoint: ["/home/ubuntu/omim-crawler/run.sh"]
   
