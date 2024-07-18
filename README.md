@@ -27,15 +27,17 @@ less mim2gene.txt | grep -v "#" | awk -F"\t" '{if(($2 == "gene" || $2 == "gene/p
 
 ## III. Run
 
+- Move the input file above to the `inputs/omim-genes` folder
+
 - Run the below command inside the folder omim-crawler
 
-```
+```bash
   docker compose up -d
 ```
 
 - You can view execution logs of the docker container by running:
 
-```
+```bash
   docker logs -f omim
 ```
 
@@ -57,7 +59,7 @@ Structure:
 }
 ```
 
-#### 2. Data for table `phenotypes`
+#### 2. Data for table `omim`
 
 - JSON file placed in folder outputs/omim/`YOUR_INPUT_FILE_NAME`\_db.json
 

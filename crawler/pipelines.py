@@ -14,8 +14,10 @@ class CrawlerPipeline(object):
     def __init__(self):
         if os.getenv("STATE") == 'OMIM_GENE':
             folder = f'omim-genes/{os.getenv("INPUT_FILE")}'
-        else:
+        elif (os.getenv("STATE") == 'OMIM_NUMBER'):
             folder = f'omim/{os.getenv("INPUT_FILE")}'
+        else:
+            folder = f'omim-pheno/{os.getenv("INPUT_FILE")}'
         
         self.file = open(f'/home/ubuntu/omim-crawler/outputs/result/{folder}/{os.getenv("INPUT_FILE")}.json', 'wb')
         self.exporter = JsonLinesItemExporter(self.file, ensure_ascii=False, encoding='utf-8')
