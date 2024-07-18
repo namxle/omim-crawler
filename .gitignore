@@ -136,13 +136,17 @@ convert/node_modules/*
 # Input files
 inputs/omim/*.txt
 inputs/omim-genes/*.txt
+inputs/omim-pheno/*.txt
 
 # Output files
 outputs/logs/omim/*.log
 outputs/logs/omim-genes/*.log
+outputs/logs/omim-pheno/*.log
 
 # Result files
 outputs/result/omim/*
 outputs/result/omim-genes/*
+outputs/result/omim-pheno/*
+
 
 node_modules
