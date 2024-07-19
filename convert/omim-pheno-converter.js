@@ -1,4 +1,5 @@
 const fs = require('fs');
+const readline = require('readline');
 const cheerio = require('cheerio');
 const commander = require('commander');
 
@@ -27,14 +28,19 @@ const NAS_STRING = '.';
 run();
 
 async function run() {
-  const fdata = fs
-    .readFileSync(options.input, 'utf8')
-    .replace(/\r|\r\n|\n/g, '\n')
-    .split('\n');
+  // Create a readable stream from the file
+  const fdata = fs.createReadStream('example.txt', 'utf8');
+
+  // Create an interface for reading lines from the file stream
+  const rl = readline.createInterface({
+    input: fileStream,
+    crlfDelay: Infinity, // Recognize all instances of CR LF ('\r\n') as a single line break
+  });
 
   const results = [];
 
-  for (const line of fdata) {
+  // Event listener for when a line is read
+  rl.on('line', (line) => {
     if (line) {
       const datum = JSON.parse(line);
       const $ = cheerio.load(datum.content);
@@ -74,12 +80,14 @@ async function run() {
         `${datum.omim_number}\t${datum.descriptions}\t${datum.clinicalFeatures}`
       );
     }
-  }
+  });
 
-  // console.log(results);
-
-  // Write results
-  fs.writeFileSync(options.output, results.join('\n'), 'utf-8');
+  // Event listener for when the file has been fully read
+  rl.on('close', () => {
+    console.log('File reading completed.');
+    // Write results
+    fs.writeFileSync(options.output, results.join('\n'), 'utf-8');
+  });
 }
 
 async function wait(ms) {

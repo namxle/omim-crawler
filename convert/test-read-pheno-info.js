@@ -39,7 +39,7 @@ function parseText(data) {
             return `<strong>${element.text}</strong>`;
           }
         })
-        .join('');
+        .join(' ');
       return tags;
     })
     .join('\n<br>\n');
