@@ -19,6 +19,7 @@ const omimUrl = 'https://www.omim.org';
 const types = {
   TEXT: 'text',
   LINK: 'link',
+  BOLD: 'bold',
 };
 
 const NAS_STRING = '.';
@@ -125,6 +126,22 @@ function extractContent($, element) {
           type: value != NAS_STRING ? types.LINK : types.TEXT,
           text: text_value,
           value: value,
+        });
+      }
+    } else if (node.tagName == 'strong') {
+      if (text_value != '') {
+        contents.push({
+          type: types.BOLD,
+          text: text_value,
+          value: NAS_STRING,
+        });
+      }
+    } else {
+      if (text_value != '') {
+        contents.push({
+          type: types.TEXT,
+          text: text_value,
+          value: NAS_STRING,
         });
       }
     }

@@ -30,8 +30,11 @@ node convert/gene-omim-literature-converter.js
 
 echo "Move omim number input file"
 
-mv /home/ubuntu/omim-crawler/outputs/result/omim-genes/$INPUT_FILE/"$INPUT_FILE"_omim_number.txt \
+cp /home/ubuntu/omim-crawler/outputs/result/omim-genes/$INPUT_FILE/"$INPUT_FILE"_omim_number.txt \
 /home/ubuntu/omim-crawler/inputs/omim/$INPUT_FILE.txt
+
+cp /home/ubuntu/omim-crawler/outputs/result/omim-genes/$INPUT_FILE/"$INPUT_FILE"_omim_number.txt \
+/home/ubuntu/omim-crawler/inputs/omim-pheno/$INPUT_FILE.txt
 
 echo "Done Omim Gene"
 

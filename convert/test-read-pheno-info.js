@@ -13,7 +13,7 @@ const data = fs
   .map((datum) => {
     const dtags = parseText(datum.description);
     const ctags = parseText(datum.clinical_features);
-    console.log(ctags);
+    console.log(dtags);
   });
 
 function parseText(data) {
@@ -23,13 +23,20 @@ function parseText(data) {
         .filter(
           (element) =>
             element.type == 'link' ||
-            (element.type == 'text' && element.text != '.')
+            element.type == 'text' ||
+            element.type == 'bold'
         )
         .map((element, index) => {
           if (element.type == 'text') {
             return `<span>${element.text}</span>`;
-          } else if (element.type == 'link' && element.value != '.') {
-            return `<a href="${element.value}">${element.text}</a>`;
+          } else if (element.type == 'link') {
+            if (element.value != '.') {
+              return `<a href="${element.value}">${element.text}</a>`;
+            } else {
+              return `<span>${element.text}</span>`;
+            }
+          } else if (element.type == 'bold') {
+            return `<strong>${element.text}</strong>`;
           }
         })
         .join('');
