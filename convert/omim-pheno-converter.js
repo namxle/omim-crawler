@@ -29,7 +29,7 @@ run();
 
 async function run() {
   // Create a readable stream from the file
-  const fileStream = fs.createReadStream('example.txt', 'utf8');
+  const fileStream = fs.createReadStream(options.input, 'utf8');
 
   // Create an interface for reading lines from the file stream
   const rl = readline.createInterface({
